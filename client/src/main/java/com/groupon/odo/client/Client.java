@@ -1045,7 +1045,7 @@ public class Client {
     }
 
     /**
-     * Enable/disable a server mapping
+     * Enable/disable a server mapping by id
      *
      * @param serverMappingId ID of server mapping
      * @param enabled true to enable, false to disable
@@ -1065,6 +1065,23 @@ public class Client {
             return null;
         }
         return redirect;
+    }
+
+    /**
+     * Enable/disable a server mapping by name
+     *
+     * @param serverMappingName name of server mapping
+     * @param enabled true to enable, false to disable
+     * @return updated info for the ServerRedirect
+     */
+    public ServerRedirect enableServerMapping(String serverMappingName, Boolean enabled) {
+        List<ServerGroup> groups = getServerGroups();
+        for (ServerGroup group : groups) {
+            if (group.getName().equalsIgnoreCase(serverMappingName)) {
+                return enableServerMapping(group.getId(), enabled);
+            }
+        }
+        return null;
     }
 
     /**
